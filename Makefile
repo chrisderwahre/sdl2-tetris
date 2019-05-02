@@ -1,23 +1,15 @@
-CC?=gcc
-#CC=i686-w64-mingw32-gcc
-#CC=clang
+XBE_TITLE = tetris
 
-SRC=$(wildcard *.c)
-OBJS=$(SRC:.c=.o)
+SRCS += $(CURDIR)/graphics.c $(CURDIR)/input.c $(CURDIR)/logsys.c $(CURDIR)/tetris.c
 
-CFLAGS=-std=c99 -O2 -Wall
-LIBS=-lSDL2 -lSDL2_ttf
-OUTPUT=tetris
+NXDK_DIR = $(CURDIR)/../nxdk
+NXDK_SDL = y
+GEN_XISO = ${XBE_TITLE}.iso
 
-all: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(OUTPUT) $(LIBS)
+new_all: copy_font all
 
-%.o: %.c
-	$(CC) -c $(CFLAGS) -o $@ $<
-	
-clean:
-	rm *.o
-	rm $(OUTPUT)
+include $(NXDK_DIR)/Makefile
 
-package:
-	tar cfv sdl2-tetris.tar $(OUTPUT) data/*
+copy_font:
+	@mkdir -p $(OUTPUT_DIR)/data
+	@cp $(CURDIR)/data/DejaVuSerif.ttf $(OUTPUT_DIR)/data/DejaVuSerif.ttf

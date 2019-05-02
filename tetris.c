@@ -1,9 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef NXDK
+#include <xboxrt/debug.h>
+#include <hal/xbox.h>
+#endif
 
 #include "logsys.h"
 #include "input.h"
 #include "graphics.h"
+
+int _exit(int x)
+{
+    debugPrint("_exit called\n");
+    debugPrint( " SDL_Error: %s\n", SDL_GetError() );
+    XSleep(5000);
+    XReboot();
+    return 0;
+}
 
 // Size of the stage
 #define STAGE_W 10
@@ -46,8 +59,13 @@
 // Locations and sizes that depend on the chosen block size
 #define STAGE_X 6 * BLOCK_SIZE
 #define STAGE_Y 2 * BLOCK_SIZE
+#ifdef NXDK
+#define SCREEN_W 640
+#define SCREEN_H 480
+#else
 #define SCREEN_W 22 * BLOCK_SIZE
 #define SCREEN_H 24 * BLOCK_SIZE
+#endif
 #define QUEUE_X 17 * BLOCK_SIZE
 #define QUEUE_Y 2 * BLOCK_SIZE
 #define HOLD_X 1 * BLOCK_SIZE
@@ -211,7 +229,7 @@ void fill_random_bag() {
 	}
 	bagCount = 0;
 	log_msgf(TRACE, "FillBag: %hhu, %hhu, %hhu, %hhu, %hhu, %hhu, %hhu\n",
-		randomBag[0], randomBag[1], randomBag[2], randomBag[3], 
+		randomBag[0], randomBag[1], randomBag[2], randomBag[3],
 		randomBag[4], randomBag[5], randomBag[6]);
 }
 
@@ -548,7 +566,7 @@ void draw_piece(Piece p, int x, int y, bool shadow) {
 		for(int j = 0; j < 4; j++) {
 			if(PieceDB[p.type][p.flip]&blockmask(i, j)) {
 				if(p.y + j < 0) continue;
-				graphics_draw_rect(x + i * BLOCK_SIZE + 1, y + j * BLOCK_SIZE + 1, 
+				graphics_draw_rect(x + i * BLOCK_SIZE + 1, y + j * BLOCK_SIZE + 1,
 					BLOCK_SIZE - 2, BLOCK_SIZE - 2);
 			}
 		}
@@ -562,7 +580,7 @@ void draw_stage() {
 			if (stage[i][j] == 0) continue;
 			int c = stage[i][j] - 1;
 			graphics_set_color(PieceColor[c]);
-			graphics_draw_rect(i * BLOCK_SIZE + STAGE_X + 1, 
+			graphics_draw_rect(i * BLOCK_SIZE + STAGE_X + 1,
 				j * BLOCK_SIZE + STAGE_Y + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
 		}
 	}

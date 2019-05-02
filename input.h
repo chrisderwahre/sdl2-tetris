@@ -1,7 +1,7 @@
 #ifndef TETRIS_INPUT
 #define TETRIS_INPUT
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 // A couple structs that contain key/mouse button status
 // There is a "current" state and an "old" state (previous frame)
@@ -14,4 +14,3 @@ struct {
 int input_update();
 
 #endif
-

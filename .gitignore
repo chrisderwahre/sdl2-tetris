@@ -1,6 +1,9 @@
 # Binaries
-tetris
+*.iso
 *.o
-
+main.*
+*.d
+*.obj
+bin/
 # Runtime generated
 error.log
