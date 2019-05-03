@@ -3,6 +3,10 @@
 
 #include <SDL.h>
 
+#ifdef NXDK
+#include <hal/input.h>
+#endif
+
 // A couple structs that contain key/mouse button status
 // There is a "current" state and an "old" state (previous frame)
 struct {
