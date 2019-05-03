@@ -3,6 +3,7 @@
 #ifdef NXDK
 #include <xboxrt/debug.h>
 #include <hal/xbox.h>
+#include <hal/input.h>
 #endif
 
 #include "logsys.h"
@@ -175,11 +176,17 @@ int main(int argc, char *argv[]) {
 	graphics_quit();
 	log_msgf(INFO, "Process exited cleanly.\n");
 	log_close();
+#ifdef NXDK     
+        XInput_Quit();
+#endif
 	return 0;
 }
 
 // Create the game window and start stuff
 void initialize() {
+#ifdef NXDK     
+        XInput_Init();
+#endif
 	graphics_init(SCREEN_W, SCREEN_H);
 	graphics_load_font("data/DejaVuSerif.ttf");
 	reset_game();
