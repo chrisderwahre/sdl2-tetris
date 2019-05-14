@@ -10,6 +10,7 @@
 #include "input.h"
 #include "graphics.h"
 
+#ifdef NXDK
 int _exit(int x)
 {
     debugPrint("_exit called\n");
@@ -18,6 +19,7 @@ int _exit(int x)
     XReboot();
     return 0;
 }
+#endif
 
 // Size of the stage
 #define STAGE_W 10
