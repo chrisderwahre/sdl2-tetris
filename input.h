@@ -1,10 +1,11 @@
 #ifndef TETRIS_INPUT
 #define TETRIS_INPUT
 
-#include <SDL.h>
-
 #ifdef NXDK
+#include <SDL.h>
 #include <hal/input.h>
+#else
+#include <SDL2/SDL.h>
 #endif
 
 // A couple structs that contain key/mouse button status
