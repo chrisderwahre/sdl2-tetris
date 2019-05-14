@@ -18,10 +18,10 @@ const int K_LEFT   = XPAD_DPAD_LEFT;
 const int K_RIGHT  = XPAD_DPAD_RIGHT;
 const int K_UP     = XPAD_DPAD_UP;
 const int K_DOWN   = XPAD_DPAD_DOWN;
-const int K_Z      = XPAD_A;
+const int K_Z      = XPAD_X;
 const int K_X      = XPAD_B;
 const int K_SHIFT  = XPAD_Y;
-const int K_SPACE  = XPAD_X;
+const int K_SPACE  = XPAD_A;
 const int K_RETURN = XPAD_BACK;
 const int K_ESC    = XPAD_START;
 
